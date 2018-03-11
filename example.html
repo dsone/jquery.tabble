@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+        <script>
+            !function(e){var t={tabble:{}};e.fn.tabble=function(){this.html('<table class="tabble"></table>'),t.tabble[this.selector]={skip:{},currentCell:0,currentRow:0,cells:0};var e=this.children(".tabble");return 1===arguments.length&&"object"==typeof arguments[0]?this.putHead(arguments[0]):2===arguments.length&&"object"==typeof arguments[0]&&"object"==typeof arguments[1]?(e.css(arguments[1]),this.putHead(arguments[0])):2===arguments.length&&"object"==typeof arguments[0]&&"string"==typeof arguments[1]&&(e.addClass(arguments[1]),this.putHead(arguments[0])),this},e.fn.putHead=function(){if(0===arguments.length)return this;var e=this.children(".tabble");if("string"==typeof arguments[0][0]){for(var l="<thead><tr>",s=0;s<arguments[0].length;++s)l+="<td>"+arguments[0][s]+"</td>";t.tabble[this.selector].cells=arguments[0].length,l+="</tr></thead>",e.append(l)}else if("object"==typeof arguments[0][0]){for(l="<thead><tr>",s=0;s<arguments[0].length;++s){var r=arguments[0][s];r.text&&(l+="<td",r.id&&(l+=' id="'+r.id+'"'),r._class&&(l+=' class="'+r._class+'"'),r.colspan&&(l+=' colspan="'+r.colspan+'"',t.tabble[this.selector].cells+=r.colspan-1),r.width&&(l+=' width="'+r.width+'"'),l+=">"+r.text+"</td>",++t.tabble[this.selector].cells)}l+="</tr></thead>",e.append(l)}return this},e.fn.addCell=function(){if(0===arguments.length)return this;var l=this.children(".tabble").children()[1];void 0===l&&(this.children(".tabble").append("<tbody><tr></tr></tbody>"),++t.tabble[this.selector].currentRow,++t.tabble[this.selector].currentCell,l=this.children(".tabble").children()[1]);var s=[];if("string"==typeof arguments[0])s.push({text:arguments[0]});else if("string"==typeof arguments[0][0])for(var r=0;r<arguments[0].length;++r)s.push({text:arguments[0][r]});else if("object"==typeof arguments[0][0])for(r=0;r<arguments[0].length;++r)s.push(arguments[0][r]);var c=function(s){for(;void 0!==t.tabble[s.selector].skip&&void 0!==t.tabble[s.selector].skip["x"+t.tabble[s.selector].currentCell]&&void 0!==t.tabble[s.selector].skip["x"+t.tabble[s.selector].currentCell]["y"+t.tabble[s.selector].currentRow]||o.colspan&&t.tabble[s.selector].currentCell+o.colspan-1>t.tabble[s.selector].cells;)++t.tabble[s.selector].currentCell,t.tabble[s.selector].currentCell>=t.tabble[s.selector].cells&&(++t.tabble[s.selector].currentRow,t.tabble[s.selector].currentCell=1,e(l).append("<tr></tr>"))};for(r=0;r<s.length;++r){var o=s[r];if(c(this),o.colspan||o.rowspan)if(o.colspan&&o.rowspan)for(var a=t.tabble[this.selector].currentRow;a<=t.tabble[this.selector].currentRow+o.rowspan-1;++a)for(var b=t.tabble[this.selector].currentCell;b<=t.tabble[this.selector].currentCell+o.colspan-1;++b)void 0===t.tabble[this.selector].skip["x"+b]&&(t.tabble[this.selector].skip["x"+b]={}),t.tabble[this.selector].skip["x"+b]["y"+a]=!0;else if(o.colspan){var i=t.tabble[this.selector].currentRow;t.tabble[this.selector].currentCell+o.colspan-1>t.tabble[this.selector].cells&&++i,o.colspan>t.tabble[this.selector].cells&&(o.colspan=t.tabble[this.selector].cells);for(b=t.tabble[this.selector].currentCell;b<=t.tabble[this.selector].currentCell+o.colspan-1;++b)void 0===t.tabble[this.selector].skip["x"+b]&&(t.tabble[this.selector].skip["x"+b]={}),t.tabble[this.selector].skip["x"+b]["y"+i]=!0}else if(o.rowspan){void 0===t.tabble[this.selector].skip["x"+t.tabble[this.selector].currentCell]&&(t.tabble[this.selector].skip["x"+t.tabble[this.selector].currentCell]={});for(a=t.tabble[this.selector].currentRow+1;a<=t.tabble[this.selector].currentRow+(o.rowspan-1);++a)t.tabble[this.selector].skip["x"+t.tabble[this.selector].currentCell]["y"+a]=!0}var n="";t.tabble[this.selector].currentCell>t.tabble[this.selector].cells?(++t.tabble[this.selector].currentRow,t.tabble[this.selector].currentCell=1,c(this),n="<tr><td",o.colspan&&(n+=' colspan="'+o.colspan+'"',t.tabble[this.selector].currentCell+=o.colspan-1),o.rowspan&&(n+=' rowspan="'+o.rowspan+'"'),o.id&&(n+=' id="'+o.id+'"'),o._class&&(n+=' class="'+o._class+'"'),n+=">"+o.text+"</td></tr>",e(l).append(n)):t.tabble[this.selector].currentCell<=t.tabble[this.selector].cells&&(n="<td",o.colspan&&(n+=' colspan="'+o.colspan+'"',t.tabble[this.selector].currentCell+=o.colspan-1),o.rowspan&&(n+=' rowspan="'+o.rowspan+'"'),o.id&&(n+=' id="'+o.id+'"'),o._class&&(n+=' class="'+o._class+'"'),n+=">"+o.text+"</td>",e(e(l).children("tr")[t.tabble[this.selector].currentRow-1]).append(n)),++t.tabble[this.selector].currentCell}},e.fn.removeBody=function(){var l=t.tabble[this.selector].cells;t.tabble[this.selector]={skip:{},currentCell:0,currentRow:0,cells:l};var s=this.children(".tabble").children()[1];return void 0!==s&&e(s).remove(""),this}}(jQuery);
+
+            $(document).ready(function() {
+                var tabble = $('.test-container').tabble(
+                    [{
+                        id: 'col-id-1',
+                        text: 'First column'
+                    },
+                    {
+                        id: 'col-id-2',
+                        text: 'Second column'
+                    },
+                    {
+                        id: 'col-id-3',
+                        _class: 'this-column-has-one-class',
+                        colspan: 3,
+                        text: 'Third column (colspan 3)'
+                    }],
+                    'my-custom-table-class'
+                );
+
+                tabble.addCell(['row1, column1', 'row 1, column2', 'row1, column3', 'row1, col4', 'row1, col5', 'row2, col1']);
+
+
+                $('.test-container2').tabble(
+                    [{
+                        id: 'col-id-1',
+                        text: 'First column',
+                        _class: 'this-column-has-one-class'
+                    },
+                    {
+                        id: 'col-id-2',
+                        text: 'Second column'
+                    },
+                    {
+                        id: 'col-id-3',
+                        colspan: 3,
+                        text: 'Third column (colspan 3)'
+                    }]
+                );
+
+                $('.test-container2').addCell([
+                    { text: 'row1, column1' },
+                    { text: 'row 1, column2' },
+                    { text: 'row1, column3 with colspan 3', colspan: 2, _class: 'example-background2' },
+                    { text: 'row2, col1' },
+                    { text: 'row2, col2' },
+                    { text: 'row2, col3', _class: 'example-background' }
+                ]);
+            });
+        </script>
+        <style>
+            table td { border: 1px solid black; padding: 2px; }
+            table { margin-bottom: 30px; }
+
+            table.my-custom-table-class td { border: 2px dashed green; }
+            .this-column-has-one-class { font-weight: bold; }
+            .example-background { background-color: green; }
+            .example-background2 { background-color: black; color: white; font-weight: bold; }
+        </style>
+    </head>
+    <body>
+        <div class="test-container"></div>
+        <div class="test-container2"></div>
+        <div class="test-container3"></div>
+    </body>
+</html>

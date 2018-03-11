@@ -71,3 +71,9 @@ Again, you can use an array of strings instead of JSON objects here as well. If 
 Since Tabble is supposed to update big tables that have colspan, rowspan and potentially a custom class for custom styling, you can remove the content of the tbody entirely with this:
 
 `$('.my-tabble-container').removeBody();`
+
+# Additional Notes
+
+In case you use a colspan in your thead for a specific column, keep in mind that the tbody td columns will be inserted in there as intended by tabble.
+Making a thead use colspan does not mean, tbody tds will use the same colspan, they won't unless you use the JSON object notation for that corresponding column.
+This is not a bug.
